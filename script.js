@@ -1,7 +1,31 @@
+// the file is too long. you should divide your code so It's easier to work with.
+// also consider using OOP instead of functions
+
+// no need for this.
 document.addEventListener("DOMContentLoaded", GameMenu);
 
+// you can white this: 
+
+// (function GameMenu()
+// {
+//     var end_menu = document.querySelector('.end_menu');
+//     var play_button = document.querySelector('#game_play');
+//     var the_game_menu = document.getElementById('game_menu');
+
+//     the_game_menu.style.top = '20%'
+//     the_game_menu.style.display = 'block'
+//     end_menu.style.display = 'none'
+
+//     play_button.addEventListener('click', menu_moving);
+// }()
+
+// this is called IIFE which is a function that run automatically
 function GameMenu()
 {
+//     don't use var.
+//     name the variables like this endMenu not end_menu
+//     in HTML and CSS name it end-menu not end_menu
+    
     var end_menu = document.querySelector('.end_menu');
     var play_button = document.querySelector('#game_play');
     var the_game_menu = document.getElementById('game_menu');
@@ -9,6 +33,21 @@ function GameMenu()
     the_game_menu.style.top = '20%'
     the_game_menu.style.display = 'block'
     end_menu.style.display = 'none'
+
+//     unless you want to use menu_moving later. you should put the function inside addEventListener like this 
+    
+//         play_button.addEventListener('click', function(gaming_scores){
+//             var end_menu = document.querySelector('.end_menu');
+//             var replay_button = document.querySelector('#replay_button');
+//             var home_button = document.querySelector('.home_button');
+//             var final_scores = document.querySelector('.final_scores');
+
+//             end_menu.style.display = 'block';
+
+//             final_scores.innerHTML = gaming_scores;
+//         }
+//     );
+//     and use arrow function
 
     play_button.addEventListener('click', menu_moving);
 }
@@ -27,8 +66,12 @@ function end_menu(gaming_scores)
 
 function replay_clicked()
 {
+//     you wrote document.querySelector('.end_menu'); alot, 
+//     if you want to use end_menu alot you should save it in global variable or some other way 
+//     document.querySelector does search for an element so it can affect the performance
     var end_menu = document.querySelector('.end_menu');
 
+//     it's often better to use opecity to show and hide elements
     if (end_menu.style.display === 'block')
     {
         end_menu.style.display = 'none';
@@ -49,6 +92,7 @@ function play_clicked()
     }
 }
 
+// the code in this function is very hard to understand you should simplify it
 function menu_moving()
 {
     var end_menu = document.querySelector('.end_menu');
@@ -226,6 +270,7 @@ function game_playing()
             function insert_virus()
             {
        
+//                 should be: const virus = [];
                 var virus = new Array();
                 
                 random_number = Math.floor((Math.random() * 4) + 1)
@@ -423,8 +468,11 @@ function track1_viruses_moving(track1_virus_index, num_of_viruses, track1_base, 
         function myFunction()
         {
             //virus_element[track1_index_virus].addEventListener('click', remove_viruse);
+//             don't use onmouseover. use add addEventListener
             virus_element[track1_index_virus].onmouseover = function() {
                 virus_element[track1_index_virus].remove();
+//                 no need for setAttribute for class. 
+//                 use virus_element[track1_index_virus].className = 'd0'
                 virus_element[track1_index_virus].setAttribute('class', 'd0');
         
                 clearInterval(track1_interval);
@@ -448,6 +496,7 @@ function track1_viruses_moving(track1_virus_index, num_of_viruses, track1_base, 
 
                 } else {
                     pos += virus_speed;
+//                     consider using `$(pos)px;` it's better
                     virus_element[track1_index_virus].style.top = pos + "px";
                 }
 
@@ -466,9 +515,18 @@ function track1_viruses_moving(track1_virus_index, num_of_viruses, track1_base, 
     }   */
 }
 
+// //     if you have many argument for function (3 or more) use object like this
+//     track2_viruses_moving({
+//         var1: 'sdfsdf',
+//         var2: 'sdfsdf',
+//         var3: 'sdfsdf',
+//         var4: 'sdfsdf',
+//     })
+//    function track2_viruses_moving(arguments)
+    
 function track2_viruses_moving(track2_virus_index, num_of_viruses, track2_base, id, virus_speed)
 {
-    
+//     track2_virus_index >== track2_base
     if (track2_virus_index >= track2_base)
     {
 
@@ -480,7 +538,21 @@ function track2_viruses_moving(track2_virus_index, num_of_viruses, track2_base, 
 
         var track2_count = track2.children.length;
         var track2_index_virus = track2_count - 1;
+        
+//         no need to create function. and naming it myFunction is not good 
+//         this should be like this
+//                 virus_element.forEach(() => {
+//                             //virus_element[track2_index_virus].addEventListener('click', remove_viruse);
+//                 virus_element[track2_index_virus].onmouseover = function() {
+//                 virus_element[track2_index_virus].remove();
+//                 virus_element[track2_index_virus].setAttribute('class', 'd0');
+        
+//                 clearInterval(track2_interval);
+//                 update_gaming_scores();
+//             };
+//            })
 
+        
         virus_element.forEach(myFunction)
 
         function myFunction()
@@ -495,7 +567,8 @@ function track2_viruses_moving(track2_virus_index, num_of_viruses, track2_base, 
             };
         }
 
-            
+//          is this boolean? if yes it should be like this
+//         const isLoop = true
         var loop = 1;
         let pos = -.20 * screen.height;
 
